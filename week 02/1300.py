@@ -14,22 +14,22 @@ def count_below(num):
     return cnt
 
 
-print(count_below(6))
-
-
 def find_kth(n, k):
     start = 1
     end = n * n
+    anw = 0
 
-    mid = (start + end) // 2
+    while start <= end:
+        mid = (start + end) // 2
 
-    if count_below(mid) > k:
-        end = mid - 1
+        if count_below(mid) >= k:
+            end = mid - 1
 
-    else
+        else:
+            start = mid + 1
+            anw = mid
+
+    return anw
 
 
-    return
-
-
-# print(find_kth(n, k))
+print(find_kth(n, k))
