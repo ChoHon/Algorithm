@@ -7,7 +7,6 @@ arr = [int(input()) for x in range(n)]
 
 
 def lan(arr, k):
-    arr.sort()
     max_length = 0
 
     start = 1
