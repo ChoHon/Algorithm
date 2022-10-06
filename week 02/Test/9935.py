@@ -1,6 +1,3 @@
-# 테스트 케이스 통과
-# 시간 초과
-
 import sys
 
 input = sys.stdin.readline
@@ -10,15 +7,27 @@ bomb = input().strip()
 
 
 def bomb_string(string, bomb):
-    while True:
-        pre_string = string
-        string = string.replace(bomb, "")
-        if len(pre_string) == len(string):
-            break
-        if not string:
-            return "FRULA"
+    stack = []
+    bomb_length = len(bomb)
+    last_bomb_char = bomb[-1]
 
-    return string
+    for char in string:
+        stack.append(char)
+
+        if char == last_bomb_char and stack[-bomb_length:] == list(bomb):
+            del stack[-bomb_length:]
+
+    if not stack:
+        return "FRULA"
+    return "".join(stack)
 
 
 print(bomb_string(string, bomb))
+
+"""
+mirkovC4nizCC44
+C4
+
+12ab112ab2ab
+12ab
+"""
