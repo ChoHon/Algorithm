@@ -1,6 +1,3 @@
-# 테스트 케이스 통과
-# 시간 초과
-
 import sys
 from collections import deque
 
@@ -8,45 +5,31 @@ input = sys.stdin.readline
 
 n = int(input())
 
-
-def len_of_moo(k):
-    if k == 0:
-        return 3
-
-    return (len_of_moo(k - 1) * 2) + k + 3
-
-
-def test(k):
-    if k == 0:
-        return [3]
-
-    return test(k - 1) + [k + 3] + test(k - 1)
+# n번째 글자가 있을 수 있는 moo수열 길이와 사이 문자열 계산
+now = 3
+between = 3
+while n > now:
+    between += 1
+    now = (now * 2) + between
 
 
-def make_moo(k):
-    if k == 0:
-        return "moo"
+def moo(now, between, n):
+    if now == 3:
+        return "m" if n == 1 else "o"
 
-    return make_moo(k - 1) + "m" + ("o" * (k + 2)) + make_moo(k - 1)
+    # moo = pre_moo + between + pre_moo
+    # 바로 전 moo수열 길이 계산
+    pre_moo = (now - between) // 2
 
+    # n이 양쪽 pre_moo 수열 부분에 있을 때 재귀
+    if n <= pre_moo:
+        return moo(pre_moo, between - 1, n)
+    elif n > pre_moo + between:
+        return moo(pre_moo, between - 1, n - pre_moo - between)
 
-def moo(n):
-    temp = 0
-    sum_ = 0
-    while sum_ < n:
-        sum_ += len_of_moo(temp)
-        temp += 1
-
-    idx = n - len_of_moo(temp - 1)
-
-    t = deque(test(temp))
-    while idx >= t[0]:
-        idx = idx - t.popleft()
-
-    if idx == 0:
-        return "m"
+    # n이 between 부분에 있을 때 반환
     else:
-        return "o"
+        return "m" if n - pre_moo == 1 else "o"
 
 
-print(moo(n))
+print(moo(now, between, n))

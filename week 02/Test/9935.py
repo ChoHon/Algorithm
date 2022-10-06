@@ -14,6 +14,7 @@ def bomb_string(string, bomb):
     for char in string:
         stack.append(char)
 
+        # bomb의 마지막 문자만 체크하다 발견시 bomb 문자열 확인
         if char == last_bomb_char and stack[-bomb_length:] == list(bomb):
             del stack[-bomb_length:]
 
