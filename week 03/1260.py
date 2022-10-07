@@ -12,9 +12,7 @@ for v1, v2 in arr:
     graph[v1].append(v2)
     graph[v2].append(v1)
 
-visited = [False] * (n + 1)
-
-
+# 재귀
 def dfs(graph, v):
     print(v, end=" ")
     visited[v] = True
@@ -26,7 +24,26 @@ def dfs(graph, v):
     return
 
 
+# stack
+def dfs2(graph, v):
+    visited = [False] * (n + 1)
+    que = [v]
+
+    while que:
+        pop = que.pop()
+
+        if visited[pop]:
+            continue
+
+        visited[pop] = True
+        print(pop, end=" ")
+
+        for node in graph[pop][::-1]:
+            que.append(node)
+
+
 def bfs(graph, v):
+    visited = [False] * (n + 1)
     que = deque([v])
 
     while que:
@@ -43,9 +60,8 @@ def bfs(graph, v):
     return
 
 
-dfs(graph, v)
+dfs2(graph, v)
 print("")
-visited = [False] * (n + 1)
 bfs(graph, v)
 
 """
