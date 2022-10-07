@@ -12,6 +12,8 @@ for v1, v2 in arr:
     graph[v1].append(v2)
     graph[v2].append(v1)
 
+visited = [False] * (n + 1)
+
 # 재귀
 def dfs(graph, v):
     print(v, end=" ")
