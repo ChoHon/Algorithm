@@ -6,44 +6,48 @@ n, m = map(int, input().split())
 arr = [list(map(int, input().split())) for x in range(m)]
 
 
-def bead(n, arr):
-    over_half = n // 2 + 1
-
-    graph = {x: [set(), set()] for x in range(1, n + 1)}
+def bead(arr):
+    mid = (n + 1) // 2
+    anw = 0
+    graph = {x: [[], []] for x in range(1, n + 1)}
     for v1, v2 in arr:
-        if v1 != v2:
-            graph[v1][1].add(v2)
-            graph[v2][0].add(v1)
+        graph[v2][0].append(v1)
+        graph[v1][1].append(v2)
 
-    def dfs(start, k):
+    def dfs(start, graph, k):
+        visited = [False] * (n + 1)
+
         cnt = 0
-        que = list(graph[start][k])
+        que = graph[start][k][:]
 
         while que:
             pop = que.pop()
-            cnt += 1
 
-            if cnt == over_half:
+            if visited[pop]:
+                continue
+            visited[pop] = True
+
+            cnt += 1
+            if cnt >= mid:
                 return True
 
             for v in graph[pop][k]:
-                que.append(v)
+                if not visited[v]:
+                    que.append(v)
 
         return False
 
-    result = 0
     for i in range(1, n + 1):
-        if dfs(i, 0):
-            result += 1
-            continue
+        if dfs(i, graph, 0):
+            anw += 1
 
-        elif dfs(i, 1):
-            result += 1
+        elif dfs(i, graph, 1):
+            anw += 1
 
-    return result
+    return anw
 
 
-print(bead(n, arr))
+print(bead(arr))
 
 """
 5 4
