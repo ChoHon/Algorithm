@@ -18,7 +18,8 @@ def find_city(arr, x):
 
     while que:
         pop, d = que.popleft()
-        if visited[pop] == -1 or visited[pop] > d:
+
+        if visited[pop] == -1:
             visited[pop] = d
 
         for next in graph[pop]:
@@ -29,13 +30,12 @@ def find_city(arr, x):
 
 
 result = find_city(arr, x)
-flag = True
+
 for i in range(len(result)):
     if result[i] == k:
         print(i)
-        flag = False
 
-if flag:
+if k not in result:
     print(-1)
 """
 4 4 2 1
