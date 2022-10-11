@@ -15,13 +15,14 @@ for i in range(n):
             reversed_graph[j + 1].append(i + 1)
             out_degree[i + 1] += 1
 
-
+# 역방향 graph와 진출차수 리스트
 def modify_graph(reversed_graph, out_degree):
     heap = []
     result = []
 
     for i in range(1, n + 1):
         if not out_degree[i]:
+            # 큰 수부터 역으로 순서를 정한다
             heappush(heap, -i)
 
     while heap:
@@ -33,6 +34,7 @@ def modify_graph(reversed_graph, out_degree):
             if out_degree[end] == 0:
                 heappush(heap, -end)
 
+    # 사이클 존재 유무 확인
     for i in out_degree[1:]:
         if i > 0:
             return [-1]
