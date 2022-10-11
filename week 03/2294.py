@@ -8,6 +8,7 @@ coin = set([int(input()) for x in range(n)])
 
 
 def cnt_coin(coin, k):
+    # 이미 최소 동전 수로 계산을 했던 금액 중복 계산 방지
     visited = set([])
     que = deque([])
     que.append([k, 0])
@@ -19,6 +20,8 @@ def cnt_coin(coin, k):
             return cnt
 
         for c in coin:
+            # 남은 금액이 동전 가치보다 크거나
+            # (남은 금액 - 동전 가치)가 계산된적 없는 금액이면 진행
             if k >= c and (k - c) not in visited:
                 visited.add(k - c)
                 que.append([k - c, cnt + 1])
