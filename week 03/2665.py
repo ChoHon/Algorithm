@@ -12,6 +12,9 @@ def make_maze(board):
     dx, dy = [1, -1, 0, 0], [0, 0, 1, -1]
     visited = [[False] * n for x in range(n)]
     visited[0][0] = True
+    # 0 - 방의 색을 바꾼 횟수
+    # 1 - x 좌표
+    # 2 - y 좌표
     heap = [[0, 0, 0]]
 
     while heap:
@@ -25,8 +28,10 @@ def make_maze(board):
             ny = y + dy[i]
 
             if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == False:
+                # 흰 방
                 if board[nx][ny] == "1":
                     heappush(heap, [cnt, nx, ny])
+                # 검은 방
                 else:
                     heappush(heap, [cnt + 1, nx, ny])
 
