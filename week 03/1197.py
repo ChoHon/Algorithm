@@ -45,48 +45,30 @@ def kruskalMST(arr):
 
 # 프림
 def primMST(start, arr):
-    arr = [[x[2], x[0], x[1]] for x in arr]
-    visited = [False] * (v + 1)
-    heap = []
+    visited = [0] * (v + 1)
+    visited[start] = 1
 
     board = [[INF for x in range(v + 1)] for y in range(v + 1)]
-    for tmp in arr:
-        board[tmp[1]][tmp[2]] = tmp[0]
-        board[tmp[2]][tmp[1]] = tmp[0]
-
-    # 모든 노드를 방문했는지 확인
-    def check(visited):
-        for i in visited[1:]:
-            if not i:
-                return True
-
-        return False
+    for v1, v2, cost in arr:
+        board[v1][v2] = cost
+        board[v2][v1] = cost
 
     anw = 0
-    visited[start] = True
-    while check(visited):
-        dist = board[start]
+    heap = [[0, start]]
+    while sum(visited) < v:
+        cost, cur_v = heappop(heap)
 
-        # 현재 노드에서 방문하지 않은 다른 노드 검색
-        # 발견한 노드를 min heap에 저장
-        for i, d in enumerate(dist):
-            if d < INF and not visited[i]:
-                heappush(heap, [d, i])
+        visited[cur_v] = 1
+        anw += cost
 
-        # 방문하지 않은 노드로 가는 edge가 나올 때까지 heap pop
-        pop = heappop(heap)
-        while visited[pop[1]]:
-            pop = heappop(heap)
-
-        anw += pop[0]
-        visited[pop[1]] = True
-
-        start = pop[1]
+        for i in range(1, v + 1):
+            if not visited[i] and board[cur_v][i] < INF:
+                heappush(heap, [board[cur_v][i], i])
 
     return anw
 
 
-print(kruskalMST(arr))
+# print(kruskalMST(arr))
 print(primMST(1, arr))
 
 """
