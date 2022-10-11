@@ -16,7 +16,6 @@ def assemble_toy():
         in_degree[end] += 1
 
     rank_order = []
-
     heap = []
     for i in range(1, n + 1):
         if in_degree[i] == 0:
@@ -37,9 +36,11 @@ def assemble_toy():
 
     basic = []
     for v in rank_order:
+        # 진입차수가 0 = 기본 부품
         if not graph[v]:
             basic.append(v)
 
+        # 위상 정렬 역순으로 부품 수 계산
         for comp, cnt in graph[v]:
             anw[comp] += cnt * anw[v]
 
