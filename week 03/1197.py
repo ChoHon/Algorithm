@@ -45,13 +45,14 @@ def kruskalMST(arr):
 
 # 프림
 def primMST(start, arr):
-    visited = [0] * (v + 1)
-    visited[start] = 1
-
     board = [[INF for x in range(v + 1)] for y in range(v + 1)]
     for v1, v2, cost in arr:
         board[v1][v2] = cost
         board[v2][v1] = cost
+
+    visited = board[0]
+    for i in range(v + 1):
+        visited[i] = 0
 
     anw = 0
     heap = [[0, start]]
