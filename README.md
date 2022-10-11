@@ -8,3 +8,6 @@
  
  Week 02
   Binary Search, Divide & conquer, Stack, Queue, Priority Queue
+
+ Week 03
+  Graph(vertex, edge, node, arc), BFS, DFS, 
