@@ -18,8 +18,10 @@ def critical_path(arr):
 
     cost = [0 for x in range(n + 1)]
     route = [[] for x in range(n + 1)]
-    que = deque([start])
 
+    # 위상정렬과 변형한 다익스트라 알고리즘으로 최고비용 계산
+    # 최고비용으로 도달한 루트도 저장
+    que = deque([start])
     while que:
         cur_city = que.popleft()
 
@@ -35,7 +37,9 @@ def critical_path(arr):
             if in_degree[next_city] == 0:
                 que.append(next_city)
 
+    # 역으로 루트를 타고 내려가서 도로 수 계산
     que = deque([finish])
+    # 중복 계산 방지를 위한 집합
     result = set()
 
     while que:
