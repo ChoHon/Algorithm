@@ -2,52 +2,39 @@ import sys
 
 input = sys.stdin.readline
 
-
-class Node:
-    def __init__(self, value, left, right):
-        self.value = value
-        self.left = left
-        self.right = right
-
-
 n = int(input())
-arr = [input().strip().split() for x in range(n)]
-arr = [Node(value, left, right) for value, left, right in arr]
-
-node_dict = {}
-for i in range(n):
-    node_dict[arr[i].value] = i
-
-root = arr[0]
+arr = [input().split() for x in range(n)]
+node_dict = {root: [left, right] for root, left, right in arr}
 
 
 def preorder(root):
+    if root == ".":
+        return
 
-    print(root.value, end="")
-    if root.left != ".":
-        preorder(arr[node_dict[root.left]])
-    if root.right != ".":
-        preorder(arr[node_dict[root.right]])
+    print(root, end="")
+    preorder(node_dict[root][0])
+    preorder(node_dict[root][1])
 
 
 def inorder(root):
+    if root == ".":
+        return
 
-    if root.left != ".":
-        inorder(arr[node_dict[root.left]])
-    print(root.value, end="")
-    if root.right != ".":
-        inorder(arr[node_dict[root.right]])
+    inorder(node_dict[root][0])
+    print(root, end="")
+    inorder(node_dict[root][1])
 
 
 def postorder(root):
+    if root == ".":
+        return
 
-    if root.left != ".":
-        postorder(arr[node_dict[root.left]])
-    if root.right != ".":
-        postorder(arr[node_dict[root.right]])
-    print(root.value, end="")
+    postorder(node_dict[root][0])
+    postorder(node_dict[root][1])
+    print(root, end="")
 
 
+root = "A"
 preorder(root)
 print("")
 inorder(root)
