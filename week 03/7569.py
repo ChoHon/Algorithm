@@ -13,6 +13,7 @@ def tomato(arr):
     dx = [0, 0, 1, -1, 0, 0]
     dy = [0, 0, 0, 0, 1, -1]
 
+    # 모든 익은 토마토 위치 탐색
     que = deque([])
     for i in range(l):
         for j in range(n):
@@ -28,8 +29,10 @@ def tomato(arr):
             nx = x + dx[i]
             ny = y + dy[i]
 
+            # 익은 토마토 주변의 안 익은 토마토가 익게 만듬
             if 0 <= nh < l and 0 <= nx < n and 0 <= ny < m and arr[nh][nx][ny] == 0:
                 que.append([nh, nx, ny])
+                # 자신이 익은 시간 + 1
                 arr[nh][nx][ny] = arr[h][x][y] + 1
 
     max_dist = 0
