@@ -21,6 +21,7 @@ def escape(arr):
                 start = [t, i, j]
                 arr[i][j] = "."
 
+    # 시간이 얼마나 지나야 물이 차는지 모든 칸에 표시
     while que:
         x, y = que.popleft()
 
@@ -36,6 +37,7 @@ def escape(arr):
                 else:
                     arr[nx][ny] = arr[x][y] + 1
 
+    # 길찾기
     que.append(start)
     while que:
         t, x, y = que.popleft()
@@ -45,6 +47,7 @@ def escape(arr):
             ny = y + dy[i]
 
             if 0 <= nx < r and 0 <= ny < c:
+                # 현재 시간이 물이 차기 전일 때 or 물이 차지 않는 곳이면 전진
                 if (type(arr[nx][ny]) == int and arr[nx][ny] > t) or arr[nx][ny] == ".":
                     que.append([t + 1, nx, ny])
                     arr[nx][ny] = "X"
