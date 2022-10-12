@@ -10,12 +10,10 @@ arr = [list(map(int, input().split())) for x in range(n)]
 def safe_area(arr):
     dx = [1, -1, 0, 0]
     dy = [0, 0, 1, -1]
-    max_h = 0
 
     graph = dict()
     for x in range(n):
         for y in range(n):
-            max_h = max(max_h, arr[x][y])
             linked = []
 
             for i in range(4):
@@ -41,18 +39,22 @@ def safe_area(arr):
                 if not graph[next_v][2] and graph[next_v][0] > h:
                     que.append(next_v)
 
-        return True
-
     result = 0
-    for h in range(max_h):
+    for h in range(101):
         cnt = 0
         for v in graph.keys():
             graph[v][2] = False
 
         for v in graph.keys():
-            if not graph[v][2] and graph[v][0] > h and bfs(graph, v, h):
+            if not graph[v][2] and graph[v][0] > h:
                 cnt += 1
+                bfs(graph, v, h)
+
         result = max(result, cnt)
+
+        if not cnt:
+            break
+
     return result
 
 
