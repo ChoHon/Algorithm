@@ -26,5 +26,15 @@ def fibonacci2(n):
     return arr[-1]
 
 
+def fibonacci3(n):
+    arr = deque([1, 1])
+
+    for _ in range(n - 2):
+        arr.append(arr[1] + arr.popleft())
+
+    return arr[1]
+
+
 print(fibonacci(n))
 print(fibonacci2(n))
+print(fibonacci3(n))
