@@ -35,6 +35,22 @@ def fibonacci3(n):
     return arr[1]
 
 
+arr = [0] * 91
+
+
+def fibonacci4(n):
+
+    if n <= 1:
+        return n
+
+    if arr[n] != 0:
+        return arr[n]
+
+    arr[n] = fibonacci4(n - 1) + fibonacci4(n - 2)
+    return arr[n]
+
+
 print(fibonacci(n))
 print(fibonacci2(n))
 print(fibonacci3(n))
+print(fibonacci4(n))
