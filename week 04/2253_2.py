@@ -23,6 +23,7 @@ def jumping(arr):
             continue
 
         for j in range(1, max_jump(i)):
+            # 가속, 유지, 감속의 경우 중 작은 값 + 1
             dp[i][j] = min(dp[i - j][j - 1], dp[i - j][j], dp[i - j][j + 1]) + 1
 
     temp = min(dp[n])
