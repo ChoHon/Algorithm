@@ -1,5 +1,4 @@
 import sys
-from heapq import *
 
 input = sys.stdin.readline
 
@@ -7,36 +6,30 @@ n, k = map(int, input().split())
 arr = list(map(int, input().split()))
 
 
+def find_index(arr, n):
+    try:
+        return arr.index(n)
+    except:
+        return 101
+
+
 def schedule_multitap(n, arr):
-    for i in range(k):
-        for j in range(i + 1, k + 1):
-            if j == k:
-                arr[i] = (-101, arr[i])
-                break
-
-            if arr[i] == arr[j]:
-                arr[i] = (-j, arr[i])
-                break
-
     cnt = 0
-    on_arr = []
+    on_arr = set([])
 
-    for order in arr:
-        is_order_on = False
-        for on_order in on_arr:
-            if order[1] == on_order[1]:
-                is_order_on = on_order
-                break
+    for i in range(k):
+        next_num = arr[i]
 
-        if is_order_on:
-            on_arr.remove(is_order_on)
-            heapify(on_arr)
+        if len(on_arr) == n and next_num not in on_arr:
+            temp_arr = []
+            for on_num in on_arr:
+                temp_arr.append((find_index(arr[i + 1 :], on_num), on_num))
 
-        elif not is_order_on and len(on_arr) == n:
-            heappop(on_arr)
+            off = max(temp_arr)[1]
+            on_arr.remove(off)
             cnt += 1
 
-        heappush(on_arr, order)
+        on_arr.add(next_num)
 
     return cnt
 
