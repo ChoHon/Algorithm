@@ -4,12 +4,16 @@ from collections import deque
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-check = [[] for x in range(n + 1)]
 small = set([int(input()) for x in range(m)])
+
+# 중복 방문 방지
+check = [[] for x in range(n + 1)]
 
 
 def solution(n, check, small):
+    # 위치, 속도, 점프 횟수
     que = deque([(1, 0, 0)])
+
     while que:
         v, jump, cnt = que.popleft()
         for temp in [jump + 1, jump, jump - 1]:
